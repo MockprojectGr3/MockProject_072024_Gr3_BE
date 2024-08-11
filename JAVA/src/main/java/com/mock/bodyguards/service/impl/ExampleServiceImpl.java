@@ -4,31 +4,31 @@ import com.mock.bodyguards.dto.request.example.ExampleRequest;
 import com.mock.bodyguards.dto.response.example.ExampleResponse;
 import com.mock.bodyguards.entity.Example;
 import com.mock.bodyguards.exception.AlreadyExistsException;
+import com.mock.bodyguards.mapper.ExampleMapper;
 import com.mock.bodyguards.repository.ExampleRepository;
 import com.mock.bodyguards.service.IExampleService;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ExampleServiceImpl implements IExampleService {
 
-    private ModelMapper modelMapper;
-    private ExampleRepository exampleRepository;
+    private final ExampleMapper     exampleMapper;
+    private final ExampleRepository exampleRepository;
 
     @Override
     public ExampleResponse createExample(ExampleRequest exampleRequest) {
-        Example example = modelMapper.map(exampleRequest, Example.class);
+        Example           example         = exampleMapper.toEntity(exampleRequest);
         Optional<Example> exampleOptional = exampleRepository.findByMobileNumber(example.getMobileNumber());
-        if(exampleOptional.isPresent()){
+        if (exampleOptional.isPresent()) {
             throw new AlreadyExistsException("Example already registered with given mobileNumber " + example.getMobileNumber());
         }
 
         Example savedExample = exampleRepository.save(example);
-        return modelMapper.map(savedExample, ExampleResponse.class);
+        return exampleMapper.toDto(savedExample);
     }
 
     @Override
