@@ -1,9 +1,9 @@
 package com.mock.bodyguards.controller;
 
-import com.mock.bodyguards.dto.request.example.ExampleRequest;
-import com.mock.bodyguards.dto.response.ErrorResponse;
-import com.mock.bodyguards.dto.response.SuccessResponse;
-import com.mock.bodyguards.dto.response.example.ExampleResponse;
+import com.mock.bodyguards.dto.example.ExampleRequest;
+import com.mock.bodyguards.dto.ErrorResponse;
+import com.mock.bodyguards.dto.SuccessResponse;
+import com.mock.bodyguards.dto.example.ExampleResponse;
 import com.mock.bodyguards.entity.Example;
 import com.mock.bodyguards.service.IExampleService;
 import io.swagger.v3.oas.annotations.Operation;
