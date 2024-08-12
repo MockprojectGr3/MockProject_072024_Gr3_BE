@@ -1,7 +1,7 @@
 package com.mock.bodyguards.service;
 
-import com.mock.bodyguards.dto.request.example.ExampleRequest;
-import com.mock.bodyguards.dto.response.example.ExampleResponse;
+import com.mock.bodyguards.dto.example.ExampleRequest;
+import com.mock.bodyguards.dto.example.ExampleResponse;
 
 public interface IExampleService {
 
