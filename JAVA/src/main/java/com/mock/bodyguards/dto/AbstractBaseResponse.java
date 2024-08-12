@@ -1,4 +1,4 @@
-package com.mock.bodyguards.dto.response;
+package com.mock.bodyguards.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

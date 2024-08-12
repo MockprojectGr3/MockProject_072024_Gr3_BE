@@ -1,4 +1,4 @@
-package com.mock.bodyguards.dto.response;
+package com.mock.bodyguards.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
