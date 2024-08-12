@@ -39,7 +39,7 @@ class ServiceController
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Service retrieved list of categories',
+                'message' => 'View list of services successfully',
                 'data' => $serviceResponses
             ]);
         } catch (\Exception $e) {

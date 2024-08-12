@@ -20,4 +20,4 @@ Route::get('/', function () {
 });
 
 // Users
-Route::get('services', [ServiceController::class, 'viewAllServices']);
+Route::get('users/services', [ServiceController::class, 'viewAllServices']);
