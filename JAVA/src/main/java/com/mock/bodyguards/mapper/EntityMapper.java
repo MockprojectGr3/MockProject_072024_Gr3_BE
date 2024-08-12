@@ -18,6 +18,16 @@ public interface EntityMapper <D, E> {
 
     List<E> toEntity(List<D> d);
 
+    /**
+     * Partially updates an entity with the values from a DTO.
+     * <p>
+     * This method updates the non-null properties of the entity with the values from the DTO.
+     * The properties 'id', 'createdAt', and 'updatedAt' are ignored during the update.
+     * </p>
+     *
+     * @param d the DTO containing the new values
+     * @param e the entity to be updated
+     */
     @Named("partialUpdate")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
