@@ -1,4 +1,4 @@
-package com.mock.bodyguards.dto.request.example;
+package com.mock.bodyguards.dto.example;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
