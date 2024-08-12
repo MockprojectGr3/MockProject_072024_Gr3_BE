@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::prefix('services')->group(function(){
+    Route::get('/{id}',[ServiceController::class, 'show']);
 });
