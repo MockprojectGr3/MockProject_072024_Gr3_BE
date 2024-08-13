@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,5 @@ Route::get('/', function () {
 
 // Users
 Route::get('users/services', [ServiceController::class, 'viewAllServices']);
+
+Route::get('users/equipmemts', [EquipmentController::class, 'viewAllEquipments']);
