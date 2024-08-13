@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('broken_date')->nullable();
             $table->string('description')->nullable();
             $table->string('progress')->nullable();
-            $table->boolean('severiry')->nullable();
+            $table->string('severity')->nullable();
             $table->softDeletes(); // deleted_at
             $table->timestamps();
         });
