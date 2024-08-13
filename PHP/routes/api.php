@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Service;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
@@ -19,6 +19,6 @@ use App\Http\Controllers\ServiceController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('services')->group(function(){
-    Route::get('/{id}',[ServiceController::class, 'show']);
-});
+
+// Users
+Route::get('users/services', [ServiceController::class, 'viewAllServices']);

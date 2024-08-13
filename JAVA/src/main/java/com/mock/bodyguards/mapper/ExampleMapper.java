@@ -1,8 +1,8 @@
 package com.mock.bodyguards.mapper;
 
 import com.mock.bodyguards.config.MapperConfig;
-import com.mock.bodyguards.dto.request.example.ExampleRequest;
-import com.mock.bodyguards.dto.response.example.ExampleResponse;
+import com.mock.bodyguards.dto.example.ExampleRequest;
+import com.mock.bodyguards.dto.example.ExampleResponse;
 import com.mock.bodyguards.entity.Example;
 import org.mapstruct.*;
 

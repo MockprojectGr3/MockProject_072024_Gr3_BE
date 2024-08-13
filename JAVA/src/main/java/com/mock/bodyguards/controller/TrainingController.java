@@ -1,49 +1,52 @@
 package com.mock.bodyguards.controller;
 
-import com.mock.bodyguards.dto.example.ExampleRequest;
 import com.mock.bodyguards.dto.ErrorResponse;
 import com.mock.bodyguards.dto.SuccessResponse;
-import com.mock.bodyguards.dto.example.ExampleResponse;
-import com.mock.bodyguards.entity.Example;
-import com.mock.bodyguards.service.IExampleService;
+import com.mock.bodyguards.dto.training.BodyguardTrainingResponse;
+import com.mock.bodyguards.entity.BodyguardTraining;
+import com.mock.bodyguards.service.ITrainingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Tag(
-        name = "Example",
-        description = "Example API"
+        name = "Training",
+        description = "Training API"
 )
 @RestController
-@RequestMapping("/api/v1/example")
-@AllArgsConstructor
+@RequestMapping("/api/v1/training")
 @Validated
-public class ExampleController {
-    private IExampleService exampleService;
+@RequiredArgsConstructor
+public class TrainingController {
+
+    private final ITrainingService trainingService;
 
     @Operation(
-            summary = "Create example",
-            description = "Create example"
+            summary = "Get ongoing training",
+            description = "Get ongoing training"
     )
     @ApiResponses({
             @ApiResponse(
-                    responseCode = "201",
-                    description = "Example created successfully",
+                    responseCode = "200",
+                    description = "Ongoing training",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(
-                                    implementation = ExampleResponse.class
+                                    implementation = BodyguardTrainingResponse.class
                             )
                     )
             ),
@@ -58,17 +61,16 @@ public class ExampleController {
                     )
             )
     })
-    @PostMapping("/create")
-    public ResponseEntity<SuccessResponse> createExample(@Valid @RequestBody ExampleRequest exampleRequest) {
-
-        ExampleResponse exampleResponse = exampleService.createExample(exampleRequest);
+    @GetMapping("/{bodyguardId}/ongoing")
+    public ResponseEntity<SuccessResponse> getOnGoingTraining(@PathVariable Long bodyguardId) {
+        List<BodyguardTraining> trainings = trainingService.getOngoingTraining(bodyguardId);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.OK)
                 .body(SuccessResponse.builder()
                         .timestamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.CREATED)
-                        .statusMessage("Example created successfully")
-                        .data(exampleResponse)
+                        .statusCode(HttpStatus.OK)
+                        .statusMessage("Ongoing training")
+                        .data(trainings)
                         .build());
     }
 }

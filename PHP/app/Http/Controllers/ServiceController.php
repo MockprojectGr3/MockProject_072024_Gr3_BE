@@ -2,52 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-class ServiceController extends Controller
+use App\Dtos\Customer\ServiceRes;
+use App\Repositories\ServiceRepository;
+
+class ServiceController 
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private ServiceRepository $serviceRepository;
+
+    public function __construct()
     {
-        //
+        $this->serviceRepository = new ServiceRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Get all services
+    public function viewAllServices()
     {
-        //
-    }
+        try {
+            $services = $this->serviceRepository->getAllServices();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $service = Service::find($id);
-        if(!$service) {
-            return response()->json(['message' => 'Service not found'], 404);
+            if ($services->isEmpty()) {
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Services not found',
+                    'data' => []
+                ]);
+            }
+
+            $serviceResponses = $services->map(function ($service) {
+                return new ServiceRes(
+                    $service->id,
+                    $service->name,
+                    $service->description,
+                    $service->price
+                );
+            });
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'View list of services successfully',
+                'data' => $serviceResponses
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Server error occurred',
+                'error' => $e->getMessage()
+            ]);
         }
-        return response()->json(['data' => $service]);
-    }   
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
