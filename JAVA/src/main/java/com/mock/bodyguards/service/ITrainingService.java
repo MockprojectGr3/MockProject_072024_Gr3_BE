@@ -18,5 +18,5 @@ public interface ITrainingService {
      * @param bodyguardId
      * @return
      */
-    public List<BodyguardTrainingResponse> getOtherTraining(Long bodyguardId);
+    public List<BodyguardTraining> getListTraining();
 }

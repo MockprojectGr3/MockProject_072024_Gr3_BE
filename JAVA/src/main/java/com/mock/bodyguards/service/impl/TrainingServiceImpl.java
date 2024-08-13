@@ -27,7 +27,9 @@ public class TrainingServiceImpl implements ITrainingService {
     }
 
     @Override
-    public List<BodyguardTrainingResponse> getOtherTraining(Long bodyguardId) {
-        return null;
+    public List<BodyguardTraining> getListTraining() {
+        return bodyguardTrainingRepository.findAll();
     }
+
+
 }
