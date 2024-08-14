@@ -18,11 +18,13 @@ class ServiceController
     public function viewAllServices()
     {
         try {
+            // Fetch all auctions from the repository
             $services = $this->serviceRepository->getAllServices();
 
+            // Check if the collection is empty
             if ($services->isEmpty()) {
                 return response()->json([
-                    'status' => '404',
+                    'status' => 404,
                     'message' => 'Services not found',
                     'data' => []
                 ]);
@@ -46,6 +48,42 @@ class ServiceController
             return response()->json([
                 'status' => 500,
                 'message' => 'Server error occurred',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    // Get detail information services
+    public function viewDetailServices($id)
+    {
+        try {
+            $service = $this->serviceRepository->getDetailService($id);
+
+            if (!$service) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Service not found',
+                    'data' => null
+                ]);
+            }
+
+            // Transform the service data into response DTO
+            $serviceResponses = new ServiceRes(
+                $service->id,
+                $service->name,
+                $service->description,
+                $service->price
+            );
+
+            return response()->json([
+                'status' => '200',
+                'message' => 'Successfully view service details',
+                'data' => $serviceResponses
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => 'Service error occurred',
                 'error' => $e->getMessage()
             ]);
         }
