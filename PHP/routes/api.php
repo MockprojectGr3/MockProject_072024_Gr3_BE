@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ServiceController;
+use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('ContactUs')->group(function(){
+    Route::get('/',[ContactUsController::class, 'index']);
+    Route::post('/', [ContactUsController::class, 'store']);
 });
 
 // Users
