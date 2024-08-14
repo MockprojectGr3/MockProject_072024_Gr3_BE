@@ -73,4 +73,43 @@ public class TrainingController {
                         .data(trainings)
                         .build());
     }
+
+    @Operation(
+            summary = "Get list of training",
+            description = "Get list of training"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "List of training",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = BodyguardTrainingResponse.class
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = ErrorResponse.class
+                            )
+                    )
+            )
+    })
+    @GetMapping("/list")
+    public ResponseEntity<SuccessResponse> getListTraining() {
+        List<BodyguardTraining> trainings = trainingService.getListTraining();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(SuccessResponse.builder()
+                        .timestamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK)
+                        .statusMessage("List of training")
+                        .data(trainings)
+                        .build());
+    }
 }

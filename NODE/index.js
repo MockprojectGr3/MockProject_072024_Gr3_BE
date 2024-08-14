@@ -16,11 +16,11 @@ app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cors({ origin: true }));
 
-app.use(errorHandler)
+app.use(errorHandler);
 
-app.use('/api', router);
+app.use('/api/v1', router);
 
-//connectDB();
+connectDB();
 
 const PORT = process.env.PORT || 8080;
 
