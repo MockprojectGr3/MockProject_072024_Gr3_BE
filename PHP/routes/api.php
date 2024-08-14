@@ -22,5 +22,6 @@ Route::get('/', function () {
 
 // Users
 Route::get('users/services', [ServiceController::class, 'viewAllServices']);
+Route::get('users/detail-service/{serviceId}', [ServiceController::class, 'viewDetailServices']);
 
 Route::get('users/equipments', [EquipmentController::class, 'viewAllEquipments']);
