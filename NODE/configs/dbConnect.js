@@ -1,30 +1,27 @@
 import sql from 'mssql';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const dbConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
-    database: process.env.DB_DATABASE_NAME,
+    user: 'sa',
+    password: '123456',
+    server: 'localhost',
+    database: 'MockProject_072024_Nhom3_v1',
     options: {
-        instanceName: process.env.DB_INSTANCE_NAME || "",
-        encrypt: false, // Use this if you're on Windows Azure
-        trustedConnection: false,
-        trustServerCertificate: true, // Change to false for production
+        encrypt: true,
+        trustServerCertificate: true,
         enableArithAbort: true,
     },
-    port: +process.env.DB_PORT,
+    port: 1433,
 };
 
-export const connectDB = async () => {
-    try {
-        const pool = await sql.connect(dbConfig);
+const poolPromise = new sql.ConnectionPool(dbConfig)
+    .connect()
+    .then(pool => {
         console.log('Connected to SQL Server');
         return pool;
+    })
+    .catch(err => {
+        console.error('Database connection failed:', err);
+        process.exit(1);
+    });
 
-    } catch (err) {
-        console.error('Database connection failed:', err.message);
-    }
-};
+export const connectDB = () => poolPromise;
