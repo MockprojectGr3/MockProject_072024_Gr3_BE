@@ -1,6 +1,6 @@
 package com.mock.bodyguards.exception;
 
-import com.mock.bodyguards.dto.response.ErrorResponse;
+import com.mock.bodyguards.dto.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
