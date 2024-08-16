@@ -5,7 +5,8 @@ import cors from "cors";
 
 import router from './routes/index.js';
 import errorHandler from './utils/errorHandler.js';
-import { connectDB } from './configs/dbConnect.js';
+import { connectDB } from "./configs/dbConnect.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.use(cors({ origin: true }));
 
 app.use(errorHandler);
 
+app.use('/api', router);
+app.use(serviceRoutes);
 app.use('/api/v1', router);
 
 connectDB();
