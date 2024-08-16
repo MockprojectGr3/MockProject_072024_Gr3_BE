@@ -22,7 +22,5 @@ export const handlerNewsDetail = async (inputId) => {
 };
 
 
-// JOIN newsImages ON newsImages.news_id = news.id
-// JOIN images ON images.id = newsImages.image_id
-// , newsImages.image_id, images.url
+
 
