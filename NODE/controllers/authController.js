@@ -1,6 +1,5 @@
 import {  handelUserLogin, registerNewUser, requestPasswordReset, resetPassword } from '../services/authService.js';
 
-
 export const handleRegister = async (req, res) => {
     let message = await registerNewUser(req.body);
     console.log(req.body);
