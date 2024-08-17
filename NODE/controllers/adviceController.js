@@ -12,3 +12,13 @@ class AdviceController {
 }
 
 export default new AdviceController();
+
+
+export const advice = async (req, res) => {
+  try {
+    const securityAdvice = await adviceService.index();
+    res.json(securityAdvice);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
