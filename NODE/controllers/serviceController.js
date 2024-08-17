@@ -9,6 +9,7 @@ class ServiceController {
       res.status(500).json({ error: error.message });
     }
   }
+  // Test protected branch
 }
 
 export default new ServiceController();
