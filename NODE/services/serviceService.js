@@ -12,6 +12,22 @@ class ServiceService {
       throw new Error("Failed to retrieve services: " + error.message);
     }
   }
+
+  async aboutGuarid() {
+    try {
+      const result = [
+        "Established in 2000",
+        "Trusted security provider",
+        "Smart features for enhanced safety",
+        "Two decades of experience",
+        "Innovative security solutions",
+        "Prioritizing your safety",
+      ];
+      return result;
+    } catch (error) {
+      throw new Error("Failed to retrieve services: " + error.message);
+    }
+  }
 }
 
 export default new ServiceService();
