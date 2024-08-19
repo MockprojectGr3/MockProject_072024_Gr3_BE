@@ -9,7 +9,15 @@ class ServiceController {
       res.status(500).json({ error: error.message });
     }
   }
-  // Test protected branch
+
+  async about(req, res) {
+    try {
+      const services = await ServiceService.aboutGuarid();
+      res.json(services);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default new ServiceController();

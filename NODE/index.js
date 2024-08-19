@@ -23,6 +23,7 @@ app.use(errorHandler);
 app.use('/api', router);
 app.use(serviceRoutes);
 app.use(adviceRoutes);
+app.use(careerRoutes);
 app.use('/api/v1', router);
 
 connectDB();
