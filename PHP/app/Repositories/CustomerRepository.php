@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Dtos\Customer\ProfileRes;
 use App\Models\Customer;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -43,35 +44,55 @@ class CustomerRepository
         );
     }
 
-    public function updateProfile(Customer $customer, string $id)
+    public function updateProfile(User $user, Customer $customer, string $id)
     {
-        try {
-            // SQL query to update profile customer information
-            $user_sql = "UPDATE users SET address_id = ?, full_name = ?, user_name = ?,  phone = ?, email = ?, password = ?, gender = ?, day_of_birth = ? WHERE id = ?";
-            $customer_sql = "UPDATE customers SET avatar = ?, bio = ? WHERE user_id = ?";
-    
-            DB::update($user_sql, [
-                $customer->address_id,
-                $customer->user->full_name,
-                $customer->user->user_name,
-                $customer->user->phone,
-                $customer->user->email,
-                $customer->user->password,
-                $customer->user->gender->getValue(),
-                $customer->user->day_of_birth,
-                $id
-            ]);
-    
-            DB::update($customer_sql, [
-                $customer->avatar,
-                $customer->bio,
-                $id
-            ]);
 
-            // Fetch the updated customer record
-            return Customer::find($customer->id);
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        // SQL query to update profile customer information
+        $user_sql = "UPDATE users SET address_id = ?, full_name = ?, user_name = ?,  phone = ?, email = ?, password = ?, gender = ?, day_of_birth = ? WHERE id = ?";
+        $customer_sql = "UPDATE customers SET avatar = ?, bio = ? WHERE user_id = ?";
+
+        DB::update($user_sql, [
+            $user->getAddressId(),
+            $user->getFullName(),
+            $user->getUserName(),
+            $user->getPhone(),
+            $user->getEmail(),
+            $user->getPassword(),
+            $user->getGender(),
+            $user->getDayOfBirth(),
+            $id
+        ]);
+
+        DB::update($customer_sql, [
+            $customer->getAvatar(),
+            $customer->getBio(),
+            $id
+        ]);
+
+        $newInformationUser = DB::selectOne("SELECT * FROM users WHERE id = ?", [$id]);
+        $newInformationCustomer = DB::selectOne(
+            "
+            SELECT customers.id, customers.avatar, customers.bio
+            FROM customers
+            WHERE customers.user_id = ?",
+            [$id]
+        );
+
+        return new Customer([
+            'user_id' => $newInformationCustomer->id,
+            'avatar' => $newInformationCustomer->avatar,
+            'bio' => $newInformationCustomer->bio,
+            new User([
+                'role' => Role::Customer->getValue(),
+                'address_id' => $newInformationUser->address_id,
+                'full_name' => $newInformationUser->full_name,
+                'user_name' => $newInformationUser->user_name,
+                'phone' => $newInformationUser->phone,
+                'email' => $newInformationUser->email,
+                'password' => $newInformationUser->password,
+                'gender' => $newInformationUser->gender,
+                'day_of_birth' => $newInformationUser->day_of_birth,
+            ])
+        ]);
     }
 }

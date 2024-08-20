@@ -13,10 +13,10 @@ enum Role
     {
         return match ($this)
         {
-            Role::Admin => 'Admin',
-            Role::Customer => 'Customer',
-            Role::Staff => 'Staff',
-            Role::BodyGuard => 'BodyGuard',
+            Role::Admin => "Admin",
+            Role::Customer => "Customer",
+            Role::Staff => "Staff",
+            Role::BodyGuard => "BodyGuard",
         };
     }
 }
