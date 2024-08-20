@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\CustomerRepository;
 
+
 class CustomerControllers
 {
     private $customerRepository;
@@ -91,9 +92,9 @@ class CustomerControllers
             // Get customer information from the request
             $profileReq = new ProfileReq($request);
 
-            $customer = User::find($id);
-            if ($customer === null) {
-                return response()->json(['error' => 'User not found'], 404);
+            $customer = Customer::find($id);
+            if (!$customer) {
+                return response()->json(['error' => 'Customer not found'], 404);
             }
 
             $user = new User([
@@ -107,16 +108,16 @@ class CustomerControllers
                 'gender' => $profileReq->gender,
                 'day_of_birth' => $profileReq->day_of_birth
             ]);
-
+            
             $customer = new Customer([
-                'id' => $profileReq->id,
+                // 'id' => $profileReq->id,
+                'user_id' => $profileReq->user_id,
                 'avatar' => $profileReq->avatar,
                 'bio' => $profileReq->bio
             ]);
 
             // Call the update method from the repository
             $updatedProfile = $this->customerRepository->updateProfile($user, $customer, $id);
-
             // Prepare the response DTO
             $result = new ProfileRes(
                 $updatedProfile->getUserId(),

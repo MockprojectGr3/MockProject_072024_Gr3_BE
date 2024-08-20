@@ -46,7 +46,6 @@ class CustomerRepository
 
     public function updateProfile(User $user, Customer $customer, string $id)
     {
-
         // SQL query to update profile customer information
         $user_sql = "UPDATE users SET address_id = ?, full_name = ?, user_name = ?,  phone = ?, email = ?, password = ?, gender = ?, day_of_birth = ? WHERE id = ?";
         $customer_sql = "UPDATE customers SET avatar = ?, bio = ? WHERE user_id = ?";
@@ -60,28 +59,29 @@ class CustomerRepository
             $user->getPassword(),
             $user->getGender(),
             $user->getDayOfBirth(),
-            $id
+            $customer->user_id
         ]);
-
+        
         DB::update($customer_sql, [
             $customer->getAvatar(),
             $customer->getBio(),
-            $id
+            $customer->getUserId(),
+            $id,
         ]);
 
-        $newInformationUser = DB::selectOne("SELECT * FROM users WHERE id = ?", [$id]);
         $newInformationCustomer = DB::selectOne(
-            "
-            SELECT customers.id, customers.avatar, customers.bio
+            "SELECT *
             FROM customers
-            WHERE customers.user_id = ?",
+            WHERE id = ?",
             [$id]
         );
 
+        $newInformationUser = DB::selectOne("SELECT * FROM users WHERE id = ?", [$newInformationCustomer->user_id]);
+
         return new Customer([
-            'user_id' => $newInformationCustomer->id,
+            'user_id' => $newInformationCustomer->user_id,
             'avatar' => $newInformationCustomer->avatar,
-            'bio' => $newInformationCustomer->bio,
+            'bio' => $customer->getBio(),
             new User([
                 'role' => Role::Customer->getValue(),
                 'address_id' => $newInformationUser->address_id,

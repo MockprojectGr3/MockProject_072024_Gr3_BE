@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class ProfileReq
 {
     public ?string $id;
+    public string $user_id;
     public string $address_id;
     public string $full_name;
     public string $user_name;
@@ -24,6 +25,7 @@ class ProfileReq
     {
         $data = [
             'id' => $req->input('id'),
+            'user_id' => $req->input('user_id'),
             'address_id' => $req->input('address_id'),
             'full_name' => $req->input('full_name'),
             'user_name' => $req->input('user_name'),
@@ -37,6 +39,7 @@ class ProfileReq
         ];
 
         $this->id = $data['id'];
+        $this->user_id = $data['user_id'];
         $this->address_id = $data['address_id'];
         $this->full_name = $data['full_name'];
         $this->user_name = $data['user_name'];
