@@ -22,7 +22,7 @@ class EquipmentController
 
             if ($equipments->isEmpty()) {
                 return response()->json([
-                    'status' => '404',
+                    'status' => 404,
                     'message' => 'Equipments not found',
                     'data' => []
                 ]);
