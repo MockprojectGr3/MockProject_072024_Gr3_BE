@@ -32,7 +32,11 @@ class ServiceService {
   async ourService() {
     try {
       const request = pool.request();
-      const result = await request.query("SELECT * FROM [dbo].[Service]");
+      const result = await request.query(`
+       SELECT *
+        FROM [dbo].[Service] AS s
+        JOIN [dbo].[Images] AS i ON s.image_id = i.id
+        `);
       return result.recordset;
     } catch (error) {
       throw new Error("Failed to retrieve services: " + error.message);
