@@ -162,6 +162,15 @@ class ServiceController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async ourService(req, res){
+    try {
+      const services = await ServiceService.ourService();
+      res.json(services);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default new ServiceController();

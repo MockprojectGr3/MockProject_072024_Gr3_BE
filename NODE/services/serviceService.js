@@ -28,6 +28,16 @@ class ServiceService {
       throw new Error("Failed to retrieve services: " + error.message);
     }
   }
+
+  async ourService() {
+    try {
+      const request = pool.request();
+      const result = await request.query("SELECT * FROM [dbo].[Service]");
+      return result.recordset;
+    } catch (error) {
+      throw new Error("Failed to retrieve services: " + error.message);
+    }
+  }
 }
 
 export default new ServiceService();
