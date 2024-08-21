@@ -110,7 +110,6 @@ class CustomerControllers
             ]);
             
             $customer = new Customer([
-                // 'id' => $profileReq->id,
                 'user_id' => $profileReq->user_id,
                 'avatar' => $profileReq->avatar,
                 'bio' => $profileReq->bio

@@ -69,12 +69,7 @@ class CustomerRepository
             $id,
         ]);
 
-        $newInformationCustomer = DB::selectOne(
-            "SELECT *
-            FROM customers
-            WHERE id = ?",
-            [$id]
-        );
+        $newInformationCustomer = DB::selectOne("SELECT * FROM customers WHERE id = ?", [$id]);
 
         $newInformationUser = DB::selectOne("SELECT * FROM users WHERE id = ?", [$newInformationCustomer->user_id]);
 

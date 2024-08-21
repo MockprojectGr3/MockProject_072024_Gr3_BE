@@ -8,40 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    // private string $user_id;
-    // private Role $role;
-    // private string $address_id;
-    // private string $full_name;
-    // private string $user_name;
-    // private string $phone;
-    // private string $email;
-    // private string $password;
-    // private string $gender;
-    // private DateTime $day_of_birth;
-
-    // public function __construct(
-    //     Role $role,
-    //     string $address_id,
-    //     string $full_name,
-    //     string $user_name,
-    //     string $phone,
-    //     string $email,
-    //     string $password,
-    //     string $gender,
-    //     DateTime $day_of_birth,
-    // ) {
-    //     parent::__construct();
-    //     $this->role = $role;
-    //     $this->address_id = $address_id;
-    //     $this->full_name = $full_name;
-    //     $this->user_name = $user_name;
-    //     $this->phone = $phone;
-    //     $this->email = $email;
-    //     $this->password = $password;
-    //     $this->gender = $gender;
-    //     $this->day_of_birth = $day_of_birth;
-    // }
-
     use HasFactory;
 
     protected $fillable = [
