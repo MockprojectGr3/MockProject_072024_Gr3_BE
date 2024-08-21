@@ -9,4 +9,6 @@ router.get("/about-guarid", ServiceController.about);
 
 router.get("/services-tracking", ServiceController.tracking);
 
+router.get("/our-service", ServiceController.ourService);
+
 export default router;
