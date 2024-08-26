@@ -5,6 +5,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FeedbackServiceController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ContractController;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,14 @@ Route::prefix('customers')->group(function(){
     Route::get('/{id}', [CustomerController::class, 'show']);
     Route::put('/{id}', [CustomerController::class, 'update']);
     Route::delete('/{id}', [CustomerController::class, 'destroy']);
+});
+
+Route::prefix('contracts')->group(function(){
+    Route::get('/', [ContractController::class, 'index']);
+    Route::post('/', [ContractController::class, 'store']);
+    Route::get('/{id}', [ContractController::class, 'show']);
+    Route::put('/{id}', [ContractController::class, 'update']);
+    Route::delete('/{id}', [ContractController::class, 'destroy']);
 });
 
 // Users
