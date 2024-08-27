@@ -5,8 +5,10 @@ import cors from "cors";
 
 import router from './routes/index.js';
 import errorHandler from './utils/errorHandler.js';
-import { connectDB } from './configs/dbConnect.js';
-
+import { connectDB } from "./configs/dbConnect.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+// import adviceRoutes from "./routes/adviceRoutes.js";
+import careerRoutes from "./routes/careerRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -18,6 +20,10 @@ app.use(cors({ origin: true }));
 
 app.use(errorHandler);
 
+app.use('/api', router);
+app.use(serviceRoutes);
+// app.use(adviceRoutes);
+app.use(careerRoutes);
 app.use('/api/v1', router);
 
 connectDB();
