@@ -41,9 +41,12 @@ Route::prefix('customers')->group(function(){
     Route::put('/{id}', [CustomerController::class, 'update']);
     Route::delete('/{id}', [CustomerController::class, 'destroy']);
 });
-
 // Users
 Route::get('users/services', [ServiceController::class, 'viewAllServices']);
 Route::get('users/detail-service/{serviceId}', [ServiceController::class, 'viewDetailServices']);
 
 Route::get('users/equipments', [EquipmentController::class, 'viewAllEquipments']);
+
+Route::get('users/customers', [CustomerControllers::class, 'viewAllCustomers']);
+Route::get('users/profile/{id}', [CustomerControllers::class, 'profileCustomer']);
+Route::put('users/update-profile/{id}', [CustomerControllers::class, 'updateProfile']);

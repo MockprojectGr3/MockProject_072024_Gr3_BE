@@ -2,46 +2,83 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
+        'id',
+        'role',
+        'address_id',
+        'full_name',
+        'user_name',
+        'phone',
         'email',
         'password',
+        'gender',
+        'day_of_birth',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected $casts = [
+        'day_of_birth' => 'datetime',
+        'role' => Role::class,
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function getRoleName(): string
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->role->getValue(); 
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+   
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    public function getAddressId(): string
+    {
+        return $this->address_id;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->full_name;
+    }
+
+    public function getUserName(): string
+    {
+        return $this->user_name;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender;
+    }
+
+    public function getDayOfBirth(): DateTime
+    {
+        return $this->day_of_birth;
     }
 }
